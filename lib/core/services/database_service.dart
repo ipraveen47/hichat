@@ -14,6 +14,7 @@ class DatabaseService {
     }
   }
 
+  // method for loading a single user
   Future<Map<String, dynamic>?> loadUser(String uid) async {
     try {
       final res = await _fire.collection("users").doc(uid).get();
@@ -25,5 +26,19 @@ class DatabaseService {
       rethrow;
     }
     return null;
+  }
+  // method for loading the list of users
+
+  Future<List<Map<String, dynamic>>?> fetchUsers(String currentUserId) async {
+    try {
+      final res = await _fire
+          .collection("users")
+          .where("uid", isNotEqualTo: currentUserId)
+          .get();
+
+      return res.docs.map((e) => e.data()).toList();
+    } catch (e) {
+      rethrow;
+    }
   }
 }

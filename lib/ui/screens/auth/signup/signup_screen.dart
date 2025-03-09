@@ -34,22 +34,22 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const Text("Please Enter Your Details"),
                     20.verticalSpace,
-                    customTextField(
+                    CustomTextField(
                       hintText: "Full Name",
                       onChanged: model.setName,
                     ),
                     20.verticalSpace,
-                    customTextField(
+                    CustomTextField(
                       hintText: "Enter Email",
                       onChanged: model.setEmail,
                     ),
                     20.verticalSpace,
-                    customTextField(
+                    CustomTextField(
                       hintText: "Enter Password",
                       onChanged: model.setPassword,
                     ),
                     20.verticalSpace,
-                    customTextField(
+                    CustomTextField(
                       hintText: "Confirm Password",
                       onChanged: model.setConfirmPassword,
                     ),

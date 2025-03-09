@@ -10,6 +10,7 @@ const login = "/login ";
 const register = "/register ";
 const wrapper = "/wrapper ";
 const signup = "/signup ";
+const chatRoom = "/chatRoom";
 
 // Icons
 

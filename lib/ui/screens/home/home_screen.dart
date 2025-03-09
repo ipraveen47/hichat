@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hichat/core/enum/enum.dart';
 import 'package:hichat/core/other/user_provider.dart';
 
 import 'package:hichat/core/services/auth_services.dart';

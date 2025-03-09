@@ -36,10 +36,10 @@ class LoginScreen extends StatelessWidget {
                     10.verticalSpace,
                     const Text("Please Login To Your Account "),
                     30.verticalSpace,
-                    customTextField(
+                    CustomTextField(
                         hintText: "Enter Email", onChanged: model.setEmail),
                     20.verticalSpace,
-                    customTextField(
+                    CustomTextField(
                       hintText: "Enter Password",
                       onChanged: model.setPassword,
                     ),

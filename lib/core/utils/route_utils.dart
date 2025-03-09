@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hichat/core/constants/strings.dart';
 import 'package:hichat/ui/screens/auth/login/login_screen.dart';
 import 'package:hichat/ui/screens/auth/signup/signup_screen.dart';
+import 'package:hichat/ui/screens/bottom_navigation/chat_list/chat_room/chat_screen.dart';
 import 'package:hichat/ui/screens/home/home_screen.dart';
 import 'package:hichat/ui/screens/wrapper/wrapper.dart';
 
@@ -20,6 +21,8 @@ class RouteUtils {
         return MaterialPageRoute(builder: (context) => const Wrapper());
       case login:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
+      case chatRoom:
+        return MaterialPageRoute(builder: (context) => const ChatScreen());
 
       default:
         return MaterialPageRoute(
