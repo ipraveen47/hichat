@@ -24,6 +24,7 @@ class hichat extends StatelessWidget {
         builder: (context, child) => ChangeNotifierProvider(
               create: (context) => UserProvider(DatabaseService()),
               child: const MaterialApp(
+                debugShowCheckedModeBanner: false,
                 onGenerateRoute: RouteUtils.onGenerateRoute,
                 home: SplashScreen(),
               ),

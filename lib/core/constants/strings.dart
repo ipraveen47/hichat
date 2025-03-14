@@ -5,7 +5,6 @@ const frame = "assets/frame.png";
 // Route Names // screen names
 
 const splash = "/splash ";
-const home = "/home ";
 const login = "/login ";
 const register = "/register ";
 const wrapper = "/wrapper ";

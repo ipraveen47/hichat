@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +7,6 @@ import 'package:hichat/core/enum/enum.dart';
 import 'package:hichat/core/extension/widget_extension.dart';
 import 'package:hichat/core/services/auth_services.dart';
 import 'package:hichat/ui/screens/auth/login/login_viewmodel.dart';
-import 'package:hichat/ui/screens/home/home_screen.dart';
 import 'package:hichat/ui/widgets/button_widget.dart';
 import 'package:hichat/ui/widgets/textfield_widget.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +51,6 @@ class LoginScreen extends StatelessWidget {
                                 await model.login();
                                 context.showSnackbar(
                                     "User logged in Successfully! ");
-                                Navigator.pushNamed(context, home);
                               } on FirebaseAuthException catch (e) {
                                 context.showSnackbar(e.toString());
                               } catch (e) {

@@ -19,4 +19,9 @@ class UserProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  clearUser() {
+    _currentUser = null;
+    notifyListeners();
+  }
 }

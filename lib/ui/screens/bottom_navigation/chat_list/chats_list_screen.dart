@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hichat/core/constants/colors.dart';
 import 'package:hichat/core/constants/strings.dart';
 import 'package:hichat/core/constants/styles.dart';
+import 'package:hichat/core/enum/enum.dart';
 import 'package:hichat/core/models/user_model.dart';
 import 'package:hichat/core/other/user_provider.dart';
 import 'package:hichat/core/services/database_service.dart';
@@ -15,7 +16,7 @@ class ChatsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentUser = Provider.of<UserProvider>(context).user;
+    final currentUser = Provider.of<UserProvider>(context, listen: false).user;
     return ChangeNotifierProvider(
       create: (context) => ChatListViewmodel(DatabaseService(), currentUser!),
       child: Consumer<ChatListViewmodel>(builder: (context, model, _) {
@@ -33,25 +34,41 @@ class ChatsListScreen extends StatelessWidget {
                 ),
               ),
               20.verticalSpace,
-              const CustomTextField(
+              CustomTextField(
                 isSearch: true,
                 hintText: "Search here...",
+                onChanged: model.search,
               ),
               10.verticalSpace,
-              Expanded(
-                child: ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                  itemCount: model.users.length,
-                  separatorBuilder: (context, index) => 5.verticalSpace,
-                  itemBuilder: (context, index) {
-                    final user = model.users[index];
-                    return ChatTile(
-                      user: user,
-                      onTap: () => Navigator.pushNamed(context, chatRoom),
-                    );
-                  },
-                ),
-              )
+              model.state == ViewState.loading
+                  ? Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : model.users.isEmpty
+                      ? Expanded(
+                          child: Center(
+                          child: Text("No User to chat Yet"),
+                        ))
+                      : Expanded(
+                          child: ListView.separated(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 0),
+                            itemCount: model.users.length,
+                            separatorBuilder: (context, index) =>
+                                5.verticalSpace,
+                            itemBuilder: (context, index) {
+                              final user = model.users[index];
+                              return ChatTile(
+                                user: user,
+                                onTap: () => Navigator.pushNamed(
+                                    context, chatRoom,
+                                    arguments: user),
+                              );
+                            },
+                          ),
+                        )
             ],
           ),
         );
@@ -73,13 +90,21 @@ class ChatTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       contentPadding: EdgeInsets.all(0),
       leading: CircleAvatar(
-        radius: 35,
+        radius: 35, // Ensures a circular shape
         backgroundColor: gray,
-        child: Text(user.name![0]),
+        backgroundImage: (user.imageUrl == null || user.imageUrl!.isEmpty)
+            ? null // No image, show initials
+            : NetworkImage(user.imageUrl!),
+        child: (user.imageUrl == null || user.imageUrl!.isEmpty)
+            ? Text(
+                user.name![0], // Show first letter of the name
+                style: h,
+              )
+            : null, // Hide text when image loads
       ),
       title: Text(user.name!),
       subtitle: Text(
-        "this is subtitle and i'm checking the overflow  ",
+        user.lastMessage != null ? user.lastMessage!["content"] : "",
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -87,18 +112,42 @@ class ChatTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text("15 min ago"),
-          10.verticalSpace,
-          CircleAvatar(
-            radius: 10.r,
-            backgroundColor: primary,
-            child: Text(
-              "1",
-              style: TextStyle(color: Colors.white),
-            ),
-          )
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Text(user.lastMessage == null ? "" : getTime(),
+                style: const TextStyle(color: gray)),
+          ),
+          8.verticalSpace,
+          user.unreadCounter == 0 || user.unreadCounter == null
+              ? const SizedBox(
+                  height: 15,
+                )
+              : CircleAvatar(
+                  radius: 9.r,
+                  backgroundColor: primary,
+                  child: Text(
+                    "${user.unreadCounter}",
+                    style: small.copyWith(color: white),
+                  ),
+                )
         ],
       ),
     );
+  }
+
+  String getTime() {
+    DateTime now = DateTime.now();
+
+    DateTime lastMessageTime = user.lastMessage == null
+        ? DateTime.now()
+        : DateTime.fromMillisecondsSinceEpoch(user.lastMessage!["timestamp"]);
+
+    int minutes = now.difference(lastMessageTime).inMinutes % 60;
+
+    if (minutes < 60) {
+      return "$minutes minutes ago";
+    } else {
+      return "${now.difference(lastMessageTime).inHours % 24} hours ago";
+    }
   }
 }

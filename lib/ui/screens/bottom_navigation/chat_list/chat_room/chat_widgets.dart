@@ -9,10 +9,12 @@ class BottomField extends StatelessWidget {
     super.key,
     this.onTap,
     this.onChanged,
+    this.controller,
   });
 
   final void Function()? onTap;
   final void Function(String)? onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class BottomField extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: onTap,
+            onTap: null,
             child: CircleAvatar(
               radius: 20.r,
               child: Icon(Icons.add),
@@ -32,9 +34,11 @@ class BottomField extends StatelessWidget {
           10.horizontalSpace,
           Expanded(
               child: CustomTextField(
+            controller: controller,
             isChatText: true,
             onChanged: onChanged,
             hintText: "Type Your Message...",
+            onTap: onTap,
           ))
         ],
       ),

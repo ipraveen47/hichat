@@ -41,4 +41,11 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> fetchUserStream(
+          String currentUserId) =>
+      _fire
+          .collection("users")
+          .where("uid", isNotEqualTo: currentUserId)
+          .snapshots();
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hichat/core/constants/strings.dart';
+import 'package:hichat/core/other/user_provider.dart';
 import 'package:hichat/ui/screens/bottom_navigation/bottom_navigation_viewModel.dart';
 import 'package:hichat/ui/screens/bottom_navigation/chat_list/chats_list_screen.dart';
+import 'package:hichat/ui/screens/bottom_navigation/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
@@ -11,11 +13,13 @@ class BottomNavigationScreen extends StatelessWidget {
   static final List<Widget> _screens = [
     Center(child: const Text("Chat Screen")),
     const ChatsListScreen(),
-    Center(child: const Text("Profile Screen")),
+    const ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = Provider.of<UserProvider>(context).user;
+
     const items = [
       BottomNavigationBarItem(
           label: "", icon: BottomNavButton(iconPath: homeIcon)),
@@ -27,10 +31,14 @@ class BottomNavigationScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BottomNavigationViewModel(),
       child: Consumer<BottomNavigationViewModel>(builder: (context, model, _) {
-        return Scaffold(
-            body: BottomNavigationScreen._screens[model.currentIndex],
-            bottomNavigationBar:
-                CustomNavbar(onTap: model.setIndex, items: items));
+        return currentUser == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Scaffold(
+                body: BottomNavigationScreen._screens[model.currentIndex],
+                bottomNavigationBar:
+                    CustomNavbar(onTap: model.setIndex, items: items));
       }),
     );
   }

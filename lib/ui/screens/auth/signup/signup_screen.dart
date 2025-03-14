@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hichat/core/constants/colors.dart';
 import 'package:hichat/core/constants/strings.dart';
 import 'package:hichat/core/constants/styles.dart';
 import 'package:hichat/core/enum/enum.dart';
 import 'package:hichat/core/extension/widget_extension.dart';
 import 'package:hichat/core/services/auth_services.dart';
 import 'package:hichat/core/services/database_service.dart';
+import 'package:hichat/core/services/storage_service.dart';
 import 'package:hichat/ui/screens/auth/signup/signp_viewmodel.dart';
 import 'package:hichat/ui/widgets/button_widget.dart';
 import 'package:hichat/ui/widgets/textfield_widget.dart';
@@ -19,7 +19,8 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SignpViewmodel>(
-      create: (context) => SignpViewmodel(AuthServices(), DatabaseService()),
+      create: (context) =>
+          SignpViewmodel(AuthServices(), DatabaseService(), StorageService()),
       child: Consumer<SignpViewmodel>(builder: (context, model, _) {
         return Scaffold(
           body: Padding(
@@ -34,6 +35,21 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const Text("Please Enter Your Details"),
                     20.verticalSpace,
+                    InkWell(
+                      onTap: () {
+                        model.pickImage();
+                      },
+                      child: model.image == null
+                          ? CircleAvatar(
+                              radius: 40.r,
+                              child: Icon(Icons.camera_alt),
+                            )
+                          : CircleAvatar(
+                              radius: 40.r,
+                              backgroundImage: FileImage(model.image!),
+                            ),
+                    ),
+                    20.verticalSpace,
                     CustomTextField(
                       hintText: "Full Name",
                       onChanged: model.setName,
@@ -47,10 +63,12 @@ class SignupScreen extends StatelessWidget {
                     CustomTextField(
                       hintText: "Enter Password",
                       onChanged: model.setPassword,
+                      isPassword: true,
                     ),
                     20.verticalSpace,
                     CustomTextField(
                       hintText: "Confirm Password",
+                      isPassword: true,
                       onChanged: model.setConfirmPassword,
                     ),
                     30.verticalSpace,

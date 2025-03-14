@@ -1,4 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+        <!-- Internet Permission (Required for Firebase) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <!-- Storage Permissions (Required for Image Upload) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
+    
     <application
         android:label="hichat"
         android:name="${applicationName}"
