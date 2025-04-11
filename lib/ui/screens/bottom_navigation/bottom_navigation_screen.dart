@@ -11,7 +11,7 @@ class BottomNavigationScreen extends StatelessWidget {
   const BottomNavigationScreen({super.key});
 
   static final List<Widget> _screens = [
-    Center(child: const Text("Chat Screen")),
+    Center(child: const Text("Welcome To hiChatApp")),
     const ChatsListScreen(),
     const ProfileScreen(),
   ];

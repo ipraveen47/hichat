@@ -39,6 +39,7 @@ class LoginScreen extends StatelessWidget {
                     CustomTextField(
                       hintText: "Enter Password",
                       onChanged: model.setPassword,
+                      isPassword: true,
                     ),
                     30.verticalSpace,
                     customButton(

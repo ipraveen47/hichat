@@ -32,6 +32,7 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         controller: controller,
+        obscureText: isPassword,
         focusNode: focusNode,
         decoration: InputDecoration(
           contentPadding:
