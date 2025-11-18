@@ -51,38 +51,38 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAVW31b0VkmxfSF4jiQcjTjB9rSpF6sV8E',
-    appId: '1:66862164693:android:ddf6b0a3c85a39449b505c',
-    messagingSenderId: '66862164693',
-    projectId: 'hichat-1292b',
-    storageBucket: 'hichat-1292b.firebasestorage.app',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyANNsiqiJ9dlfWx3DlSmY1zOTRhOELLsjQ',
-    appId: '1:66862164693:ios:7149976dc79b96249b505c',
-    messagingSenderId: '66862164693',
-    projectId: 'hichat-1292b',
-    storageBucket: 'hichat-1292b.firebasestorage.app',
-    iosBundleId: 'com.example.hichat',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
+    iosBundleId: '',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyANNsiqiJ9dlfWx3DlSmY1zOTRhOELLsjQ',
-    appId: '1:66862164693:ios:7149976dc79b96249b505c',
-    messagingSenderId: '66862164693',
-    projectId: 'hichat-1292b',
-    storageBucket: 'hichat-1292b.firebasestorage.app',
-    iosBundleId: 'com.example.hichat',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
+    iosBundleId: '',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAMe3Ed7qHCwkSQklgb5mC2A0-Zkt7xnPE',
-    appId: '1:66862164693:web:e63ce13211a717109b505c',
-    messagingSenderId: '66862164693',
-    projectId: 'hichat-1292b',
-    authDomain: 'hichat-1292b.firebaseapp.com',
-    storageBucket: 'hichat-1292b.firebasestorage.app',
-    measurementId: 'G-Q419PEZ91X',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    authDomain: '',
+    storageBucket: '',
+    measurementId: '',
   );
 }
